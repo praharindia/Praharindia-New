@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Daily Chronicle | Global News</title>
+    <style>
+        /* --- CSS STYLES --- */
+        :root {
+            --primary-color: #c0392b; /* News Red */
+            --dark-bg: #1a1a1a;
+            --light-bg: #f4f4f4;
+            --text-color: #333;
+            --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --font-serif: 'Georgia', serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--text-color);
+            background-color: #fff;
+            line-height: 1.6;
+        }
+
+        /* Header & Nav */
+        header {
+            border-bottom: 4px solid var(--dark-bg);
+        }
+
+        .top-bar {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 5px 20px;
+            font-size: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .logo-area {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            padding: 15px 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        /* Breaking News Ticker */
+        .breaking-news {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        .breaking-label {
+            background: black;
+            padding: 2px 8px;
+            margin-right: 15px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        /* Main Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr; /* Main content vs Sidebar */
+            gap: 40px;
+        }
+
+        /* Hero Section */
+        .hero-article {
+            grid-column: 1 / -1; /* Spans full width */
+            position: relative;
+            margin-bottom: 40px;
+            height: 400px;
+            background-image: url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            border-radius: 4px;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .hero-content {
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            width: 100%;
+            padding: 30px;
+            color: white;
+        }
+
+        .category-tag {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* Article Grid */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .news-card {
+            border: 1px solid #eee;
+            transition: transform 0.2s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .news-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        .card-body h3 {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .card-meta {
+            font-size: 0.8rem;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        /* Sidebar */
+        .sidebar-section {
+            background-color: var(--light-bg);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .sidebar-title {
+            border-bottom: 2px solid var(--dark-bg);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-family: var(--font-serif);
+        }
+
+        .trending-list {
+            list-style: none;
+        }
+
+        .trending-list li {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .trending-list a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: bold;
+        }
+
+        .trending-list a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-bg);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 50px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            nav {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="top-bar">
+            <span id="current-date">Loading Date...</span>
+            <span>Subscribe | Login</span>
+        </div>
+        <div class="logo-area">
+            <div class="logo">The Daily Chronicle</div>
+        </div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">World</a>
+            <a href="#">Politics</a>
+            <a href="#">Technology</a>
+            <a href="#">Business</a>
+            <a href="#">Science</a>
+            <a href="#">Sports</a>
+        </nav>
+    </header>
+
+    <!-- Breaking News -->
+    <div class="breaking-news">
+        <span class="breaking-label">Breaking</span>
+        <marquee behavior="scroll" direction="left">Global markets rally as tech stocks hit record highs • New space telescope sends back first images • Local election results coming in tonight...</marquee>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        
+        <!-- Hero Section (Featured Article) -->
+        <article class="hero-article">
+            <div class="hero-content">
+                <span class="category-tag">Featured Story</span>
+                <h1 class="hero-title">The Future of Artificial Intelligence in Modern Journalism</h1>
+                <p>How algorithms are reshaping the way we report, verify, and consume news in the 21st century.</p>
+            </div>
+        </article>
+
+        <!-- Main News Feed -->
+        <main>
+            <h2 style="font-family: var(--font-serif); margin-bottom: 20px; border-bottom: 2px solid #ddd; padding-bottom: 10px;">Latest Stories</h2>
+            <div class="news-grid" id="news-feed">
+                <!-- JavaScript will inject articles here -->
+            </div>
+        </main>
+
+        <!-- Sidebar -->
+        <aside>
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">Trending Now</h3>
+                <ul class="trending-list">
+                    <li><a href="#">1. Climate Summit Reaches Historic Agreement</a></li>
+                    <li><a href="#">2. New Electric Vehicle Battery Breakthrough</a></li>
+                    <li><a href="#">3. Championship Finals: The Underdog Victory</a></li>
+                    <li><a href="#">4. Housing Market Shows Signs of Cooling</a></li>
+                    <li><a href="#">5. Top 10 Travel Destinations for 2024</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">Newsletter</h3>
+                <p>Get the latest news delivered to your inbox daily.</p>
+                <input type="email" placeholder="Your email address" style="width: 100%; padding: 10px; margin-top: 10px; border: 1px solid #ccc;">
+                <button style="width: 100%; padding: 10px; background: var(--primary-color); color: white; border: none; margin-top: 10px; cursor: pointer;">Subscribe</button>
+            </div>
+        </aside>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 The Daily Chronicle. All rights reserved.</p>
+        <p style="font-size: 0.8rem; margin-top: 10px; color: #aaa;">Privacy Policy | Terms of Service | Contact Us</p>
+    </footer>
+
+    <script>
+        // --- JAVASCRIPT LOGIC ---
+
+        // 1. Set the current date
+        const dateElement = document.getElementById('current-date');
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        dateElement.textContent = new Date().toLocaleDateString('en-US', options);
+
+        // 2. Mock Data (Simulating a database)
+        const newsData = [
+            {
+                category: "Technology",
+                title: "Quantum Computing: A New Era Begins",
+                image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                summary: "Scientists achieve a major breakthrough in quantum stability, paving the way for faster computers."
+            },
+            {
+                category: "Environment",
+                title: "Ocean Cleanup Project Reaches Milestone",
+                image: "https://images.unsplash.com/photo-1484291470158-b8f8d608850d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                summary: "The Great Pacific Garbage Patch has seen a 25% reduction in plastic over the last year."
+            },
+            {
+                category: "Business",
+                title: "Startups Pivot to Green Energy",
+                image: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                summary: "Venture capital is shifting heavily towards sustainable energy solutions and green tech."
+            },
+            {
+                category: "Health",
+                title: "New Study on Sleep Patterns",
+                image: "https://images.unsplash.com/photo-1541781777621-af1394378928?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                summary: "Researchers find that 7 hours is the optimal amount of sleep for cognitive function."
+            },
+            {
+                category: "Culture",
+                title: "Modern Art Exhibition Opens in Paris",
+                image: "https://images.unsplash.com/photo-1518998053901-5348d3969105?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                summary: "The Louvre unveils a controversial new exhibit focusing on digital art."
+            },
+            {
+                category: "Sports",
+                title: "Marathon World Record Shattered",
+                image: "https://images.unsplash.com/photo-1552674605-4694559e4bc7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                summary: "An unexpected runner from Kenya breaks the 2-hour barrier in the Berlin Marathon."
+            }
+        ];
+
+        // 3. Function to render news cards
+        const newsFeed = document.getElementById('news-feed');
+
+        function loadNews() {
+            newsData.forEach(article => {
+                // Create HTML structure for each card
+                const cardHTML = `
+                    <article class="news-card">
+                        <img src="${article.image}" alt="${article.title}">
+                        <div class="card-body">
+                            <span class="category-tag" style="font-size: 0.7rem;">${article.category}</span>
+                            <h3>${article.title}</h3>
+                            <div class="card-meta">2 hours ago</div>
+                            <p>${article.summary}</p>
+                        </div>
+                    </article>
+                `;
+                // Append to the feed
+                newsFeed.innerHTML += cardHTML;
+            });
+        }
+
+        // Run the function
+        loadNews();
+
+    </script>
+</body>
+</html>
